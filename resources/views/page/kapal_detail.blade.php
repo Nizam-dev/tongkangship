@@ -18,7 +18,7 @@
                     </p>
 
                     <p class="mb-3">
-                        <span class="badge bg-success">Stok : {{$kapal->stok}}</span>
+                        <span class="badge bg-success">Stok : {{$kapal->stok - $booking }}</span>
                     </p>
 
                     <!-- price -->

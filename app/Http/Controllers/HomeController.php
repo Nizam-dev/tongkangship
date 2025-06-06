@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\kapal;
+use App\Models\ListPelabuhan;
+use App\Models\RoutePelabuhan;
 use App\Models\booking;
 
 class HomeController extends Controller
@@ -26,6 +28,9 @@ class HomeController extends Controller
         $data['kapal'] = kapal::leftjoin('kategoris', 'kategoris.id', '=', 'kapals.kategori_id')
         ->select('kapals.*', 'kategoris.kategori')
         ->find($id);
+        $data['booking'] = booking::where('kapal_id', $id)
+        ->where('status', 'kapal sedang dikirim')
+        ->count();
         return view('page.kapal_detail', $data);
     }
     public function about()
@@ -36,8 +41,8 @@ class HomeController extends Controller
     public function trackingkapal(){
         $data = booking::leftjoin('kapals', 'kapals.id', '=', 'bookings.kapal_id')
         ->leftjoin('kategoris', 'kategoris.id', '=', 'kapals.kategori_id')
-        ->leftjoin('pelabuhans', 'pelabuhans.id', '=', 'bookings.pelabuhan_id')
-        ->select('bookings.*', 'kapals.nama_kapal', 'kategoris.kategori', 'pelabuhans.nama_pelabuhan', 'pelabuhans.route','pelabuhans.etimasi')
+        ->leftjoin('route_pelabuhans', 'route_pelabuhans.id', '=', 'bookings.pelabuhan_id')
+        ->select('bookings.*', 'kapals.nama_kapal', 'kategoris.kategori', 'route_pelabuhans.route','route_pelabuhans.etimasi')
         ->where('bookings.status', 'kapal sedang dikirim')
         ->get();
         return response()->json($data);
@@ -57,8 +62,8 @@ class HomeController extends Controller
     public function trackingkapal_detail(Request $request){
         $data = booking::leftjoin('kapals', 'kapals.id', '=', 'bookings.kapal_id')
         ->leftjoin('kategoris', 'kategoris.id', '=', 'kapals.kategori_id')
-        ->leftjoin('pelabuhans', 'pelabuhans.id', '=', 'bookings.pelabuhan_id')
-        ->select('bookings.*', 'kapals.nama_kapal', 'kategoris.kategori', 'pelabuhans.nama_pelabuhan', 'pelabuhans.route','pelabuhans.etimasi')
+        ->leftjoin('route_pelabuhans', 'route_pelabuhans.id', '=', 'bookings.pelabuhan_id')
+        ->select('bookings.*', 'kapals.nama_kapal', 'kategoris.kategori', 'route_pelabuhans.route','route_pelabuhans.etimasi')
         ->where('bookings.status', 'kapal sedang dikirim')
         ->where('bookings.id', $request->id)
         ->get();

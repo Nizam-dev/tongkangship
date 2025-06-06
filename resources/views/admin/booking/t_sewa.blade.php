@@ -17,7 +17,7 @@
                   <td>{{ $no1++ }}</td>
                   <td>{{ $item->kode_booking }}</td>
                   <td>{{ $item->nama_kapal }}</td>
-                  <td>@formatRupiah($item->total)</td>
+                  <td>@formatRupiah($item->total +$item->operational)</td>
                   <td>
                       @if ($item->status == 'pembayaran diterima')
                       <span class="badge bg-warning">{{ $item->status }}</span>
@@ -81,7 +81,7 @@
                       </tr>
                       <tr>
                           <td>Harga</td>
-                          <td>: @formatRupiah($item->total)</td>
+                          <td>: @formatRupiah($item->total+$item->operational)</td>
                       </tr>
                       <tr>
                           <td>Tanggal</td>
@@ -104,9 +104,13 @@
                           <td>Alamat</td>
                           <td>: {{ $item->alamat }}</td>
                       </tr>
-                        <tr>
-                        <td>Pelabuhan Pengiriman</td>
-                        <td>: {{ $item->nama_pelabuhan . ' - ' . $item->lokasi_pelabuhan }}</td>
+                                    <tr>
+                        <td>Pelabuhan Asal</td>
+                        <td>: {{ $item->pelabuhan_asal }}</td>
+                      </tr>
+                      <tr>
+                        <td>Pelabuhan Tujuan</td>
+                        <td>: {{ $item->pelabuhan_tujuan . ' - ' . $item->lokasi_pelabuhan }}</td>
                       </tr>
                       @if($item->bukti_pembayaran != null)
                       <tr>

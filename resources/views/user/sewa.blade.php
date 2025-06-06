@@ -21,6 +21,12 @@
                                 <h5 class="text-primary">: Rp. {{number_format($kapal->harga_sewa)}} / Hari</h5>
                             </td>
                         </tr>
+                        <tr>
+                              <th><h5 class="text-primary">Biaya Operasional</h5></th>
+                            <td>
+                                <h5 class="text-primary bop">-</h5>
+                            </td>
+                        </tr>
                         @endif
                     </table>
                     
@@ -58,8 +64,16 @@
                             </div>
                         </div>
                         <div class="form-group mb-2">
+                            <label for="">Pelabuhan Asal</label>
+                            <select name="pelabuhan_asal" class="form-control" onchange="cek_route()">
+                                @foreach ($pelabuhan as $item)
+                                    <option value="{{$item->id}}">{{$item->nama_pelabuhan . ' - ' . $item->lokasi}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                          <div class="form-group mb-2">
                             <label for="">Pelabuhan Tujuan</label>
-                            <select name="pelabuhan_id" class="form-control">
+                            <select name="pelabuhan_tujuan" class="form-control" onchange="cek_route()">
                                 @foreach ($pelabuhan as $item)
                                     <option value="{{$item->id}}">{{$item->nama_pelabuhan . ' - ' . $item->lokasi}}</option>
                                 @endforeach
@@ -77,3 +91,19 @@
     </div>
 
 @endsection
+@push('js')
+<script>
+    let cek_route = ()=>{
+        let pelabuhan_asal = $('select[name="pelabuhan_asal"]').val();
+        let pelabuhan_tujuan = $('select[name="pelabuhan_tujuan"]').val();
+        axios.post("{{url('cekbiayaop')}}", {pelabuhan_asal:pelabuhan_asal, pelabuhan_tujuan:pelabuhan_tujuan}).then(res => {
+            if(res.data.status) {
+                $('.bop').html(`: Rp. ${res.data.harga.toLocaleString()}`);
+            }else{
+                $('.bop').html(`-`);
+                 $.notify("Rute tidak tersedia", "error");
+            }
+        })
+    }
+</script>
+@endpush

@@ -54,7 +54,7 @@
                     </div>
                      <div class="whater-icon d-flex align-items-center">
                         <img src="https://cdn-icons-png.flaticon.com/128/1673/1673416.png" alt="">
-                        <p>{{rand_kecepatan_kapal()}} kn <br>
+                        <p><span class="knot"><b> </b></span> knot <br>
                             1.7 m/s
                         </p>
                     </div>
@@ -65,7 +65,56 @@
                     </div>
                 </div>
             </div>
+
             <div class="col-md-6">
+                <div class="bg-info text-white text-center mb-2">DETAIL</div>
+
+                 <table class="table table-hover table-stripped table-bordered">
+           
+            <tr>
+                <td>Nama Kapal</td>
+                <td>: {{ $kapal->nama_kapal }}</td>
+            </tr>
+            <tr>
+                <td>Kategori</td>
+                <td>: {{ $kapal->kategori }}</td>
+            </tr>
+          
+            <tr>
+                <td>Tanggal</td>
+                <td>: {{ date('d M Y', strtotime($kapal->tanggal_mulai)) }} Sampai
+                    {{ date('d M Y', strtotime($kapal->tanggal_selesai)) }}</td>
+            </tr>
+
+            <tr>
+                <td>Nama</td>
+                <td>: {{ $kapal->nama }}</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td>: {{ $kapal->email }}</td>
+            </tr>
+            <tr>
+                <td>No Hp</td>
+                <td>: {{ $kapal->no_hp }}</td>
+            </tr>
+            <tr>
+                <td>Alamat</td>
+                <td>: {{ $kapal->alamat }}</td>
+            </tr>
+            <tr>
+                <td>Pelabuhan Asal</td>
+                <td>: {{ $kapal->pelabuhan_asal }}</td>
+            </tr>
+             <tr>
+                <td>Pelabuhan Tujuan</td>
+                <td>: {{ $kapal->pelabuhan_tujuan }}</td>
+            </tr>
+
+        </table>
+
+            </div>
+            <!-- <div class="col-md-6">
                 <div class="bg-info text-white text-center mb-2">RECENT PORT CALLS</div>
                 <table class="table table-hover table-stripped">
                     @php($sekarang = \Carbon\Carbon::now())
@@ -90,13 +139,13 @@
                     @endfor
                    
                 </table>
-            </div>
+            </div> -->
         </div>
     </div>
 
     <div class="container">
 
-        <table class="table table-hover table-stripped table-bordered">
+        <!-- <table class="table table-hover table-stripped table-bordered">
            
             <tr>
                 <td>Nama Kapal</td>
@@ -134,7 +183,7 @@
                 <td>: {{ $kapal->nama_pelabuhan . ' - ' . $kapal->lokasi_pelabuhan }}</td>
             </tr>
 
-        </table>
+        </table> -->
 
     </div>
 
@@ -155,6 +204,7 @@
 <script>
     $(document).ready(() => {
         get_data_kapal();
+        $(".knot").html(getRandomKnotSpeed());
     })
 
     const get_data_kapal = async () => {
@@ -292,6 +342,13 @@
         const angle = Math.atan2(dy, dx) * 180 / Math.PI;
         return angle;
     }
+
+    let getRandomKnotSpeed = (min = 4, max = 6)=> {
+        const speed = Math.random() * (max - min) + min;
+        return parseFloat(speed.toFixed(1));
+    }
+
+
 </script>
 
 

@@ -80,7 +80,7 @@
                         <td>Kategori</td><td>: {{ $item->kategori }}</td>
                       </tr>
                       <tr>
-                        <td>Harga</td><td>: @formatRupiah($item->total)</td>
+                        <td>Harga</td><td>: @formatRupiah($item->total+$item->operational)</td>
                       </tr>
                      
                       <tr>
@@ -99,9 +99,13 @@
                           <td>Alamat</td>
                           <td>: {{ $item->alamat }}</td>
                       </tr>
+                          <tr>
+                        <td>Pelabuhan Asal</td>
+                        <td>: {{ $item->pelabuhan_asal }}</td>
+                      </tr>
                       <tr>
-                        <td>Pelabuhan Pengiriman</td>
-                        <td>: {{ $item->nama_pelabuhan . ' - ' . $item->lokasi_pelabuhan }}</td>
+                        <td>Pelabuhan Tujuan</td>
+                        <td>: {{ $item->pelabuhan_tujuan . ' - ' . $item->lokasi_pelabuhan }}</td>
                       </tr>
                         @if($item->bukti_pembayaran != null)
                       <tr>

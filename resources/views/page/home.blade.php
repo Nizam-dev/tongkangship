@@ -24,8 +24,8 @@
                                 <h1 class="display-3 text-white animated slideInDown mb-4"> <span
                                         class="text-primary">Solusi</span> Penyewaan</h1>
                                 <p class="fs-5 fw-medium text-white mb-4 pb-2">Sewa kapal tongkang harian, mingguan, atau bulanan. Armada terawat, crew profesional, cocok untuk proyek logistik laut. Harga fleksibel, bisa negosiasi sesuai kebutuhan.</p>
-                                <a href="" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Beli</a>
-                                <a href="" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Sewa</a>
+                                <a href="{{url('kapal')}}" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Beli</a>
+                                <a href="{{url('kapal')}}" class="btn btn-secondary py-md-3 px-md-5 animated slideInRight">Sewa</a>
                             </div>
                         </div>
                     </div>

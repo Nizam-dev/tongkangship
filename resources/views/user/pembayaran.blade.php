@@ -63,27 +63,39 @@
                 <thead class="table-light">
                     <tr>
                         <th>Deskripsi</th>
+                        @if($data->type_booking == 'sewa')
                         <th>Durasi</th>
                         <th>Harga per Hari</th>
+                        @else
+                        <th>Harga</th>
+                        @endif
                         <th>Jumlah</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>{{ ucwords($data->type_booking) }} Kapal Tongkang - {{ $data->nama_kapal }}</td>
-                        <td>{{ \Carbon\Carbon::parse($data->tanggal_mulai)->diffInDays($data->tanggal_selesai) }} Hari</td>
-                        <td>Rp {{ number_format($data->harga_sewa) }}</td>
+                        @if($data->type_booking == 'sewa')
+                        <td>{{ $durasi=  \Carbon\Carbon::parse($data->tanggal_mulai)->diffInDays($data->tanggal_selesai) }} Hari</td>
+                        <td>Rp {{ number_format($data->total / $durasi ) }}</td>
+                        @else
+                        <td>Rp {{ number_format($data->total) }}</td>
+                        @endif
                         <td>Rp {{ number_format($data->total) }}</td>
                     </tr>
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="3" class="text-end">Subtotal</th>
+                        <th colspan="{{ $data->type_booking == 'sewa' ? '3' : '2' }}" class="text-end">Subtotal</th>
                         <td>Rp {{ number_format($data->total) }}</td>
+                    </tr>
+                       <tr>
+                        <th colspan="{{ $data->type_booking == 'sewa' ? '3' : '2' }}" class="text-end">Operasional</th>
+                        <td>Rp {{ number_format($data->operational) }}</td>
                     </tr>
                    
                     <tr>
-                        <th colspan="3" class="text-end">Total</th>
+                        <th colspan="{{ $data->type_booking == 'sewa' ? '3' : '2' }}" class="text-end">Total</th>
                         <td><strong>Rp {{ number_format($data->total) }}</strong></td>
                     </tr>
                 </tfoot>

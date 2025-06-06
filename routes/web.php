@@ -47,6 +47,7 @@ Route::group(['middleware' => ['role:user']], function () {
     Route::get('transaksi', [UserBookingController::class, 'transaksi'])->name('user.transaksi');
     Route::get('pembayaran/{id}', [UserBookingController::class, 'pembayaran'])->name('user.pembayaran');
     Route::post('pembayaran/{id}', [UserBookingController::class, 'bayar'])->name('user.bayar');
+    Route::post('cekbiayaop', [UserBookingController::class, 'cekbop'])->name('user.cekbop');
 });
 
 Route::get('trackingall', [HomeController::class, 'tracking_all'])->name('user.tracking_all');

@@ -17,8 +17,10 @@ class BookingController extends Controller
         $data['data'] = booking::leftjoin('kapals', 'kapals.id', '=', 'bookings.kapal_id')
         ->leftjoin('kategoris', 'kategoris.id', '=', 'kapals.kategori_id')
         ->leftjoin('users', 'users.id', '=', 'bookings.user_id')
-        ->leftjoin('pelabuhans', 'pelabuhans.id', '=', 'bookings.pelabuhan_id')
-        ->select('bookings.*', 'kapals.nama_kapal', 'kategoris.kategori', 'users.name','pelabuhans.nama_pelabuhan', 'pelabuhans.lokasi as lokasi_pelabuhan')
+        ->leftjoin('route_pelabuhans', 'route_pelabuhans.id', '=', 'bookings.pelabuhan_id')
+        ->leftjoin('list_pelabuhans as from', 'from.id', '=', 'route_pelabuhans.from_id')
+        ->leftjoin('list_pelabuhans as to', 'to.id', '=', 'route_pelabuhans.to_id')
+        ->select('bookings.*', 'kapals.nama_kapal', 'kategoris.kategori','from.nama_pelabuhan as pelabuhan_asal', 'to.nama_pelabuhan as pelabuhan_tujuan', 'to.lokasi as lokasi_pelabuhan','route_pelabuhans.etimasi','route_pelabuhans.operational')
         ->get();
         return view('admin.booking.index', $data);
     }
