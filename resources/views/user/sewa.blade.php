@@ -85,7 +85,7 @@
                             <label for="alamat">Alamat</label>
                             <textarea class="form-control"  placeholder="Alamat" name="alamat" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary py-3 px-5">Pesan</button>
+                        <button type="submit" class="btn btn-primary py-3 px-5" id="pesan">Pesan</button>
                     </form>
                 </div>
             </div>
@@ -121,9 +121,11 @@
             if(res.data.stok > 0) {
                 $('.stok').html(`Stok : ${res.data.stok} kapal`);
                 $.notify("Stok tersedia", "success");
+                $("#pesan").prop('disabled', false);
             }else{
                 $('.stok').html(`Stok : 0 kapal`);
                  $.notify("Stok tidak tersedia", "error");
+                $("#pesan").prop('disabled', true);
             }
         })
     }
