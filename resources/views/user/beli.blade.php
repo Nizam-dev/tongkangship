@@ -12,6 +12,7 @@
                         {!! str_replace("\n", "<br>", $kapal->deskripsi) !!}
                     </p>
                     <!-- price -->
+                    <span class="badge bg-success">Stok</span> 
                     <table class="table table-bordered">
                         @if($kapal->harga_jual != null)
                         <tr>
@@ -21,7 +22,7 @@
                             </td>
                         </tr>
                         <tr>
-                              <th><h5 class="text-primary">Biaya Operasional</h5></th>
+                              <th><h5 class="text-primary">Biaya Pengiriman</h5></th>
                             <td>
                                 <h5 class="text-primary bop">-</h5>
                             </td>

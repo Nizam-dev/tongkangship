@@ -12,6 +12,8 @@
                         {!! str_replace("\n", "<br>", $kapal->deskripsi) !!}
                     </p>
                     <!-- price -->
+                    <span class="badge bg-success stok">Pilih Tanggl untuk melihat Stok</span> 
+
                     <table class="table table-bordered">
                    
                         @if($kapal->harga_sewa != null)
@@ -22,7 +24,7 @@
                             </td>
                         </tr>
                         <tr>
-                              <th><h5 class="text-primary">Biaya Operasional</h5></th>
+                              <th><h5 class="text-primary">Biaya Pengiriman</h5></th>
                             <td>
                                 <h5 class="text-primary bop">-</h5>
                             </td>
@@ -102,6 +104,26 @@
             }else{
                 $('.bop').html(`-`);
                  $.notify("Rute tidak tersedia", "error");
+            }
+        })
+    }
+
+    $('input[name="tanggal_mulai"], input[name="tanggal_selesai"]').on('change', async function(){
+        if( $('input[name="tanggal_mulai"]').val() != '' && $('input[name="tanggal_selesai"]').val() != '' ){
+            await cek_stok();
+        }
+    })
+    let cek_stok = async ()=>{
+        let kapal_id = $('input[name="kapal_id"]').val();
+        let tanggal_mulai = $('input[name="tanggal_mulai"]').val();
+        let tanggal_selesai = $('input[name="tanggal_selesai"]').val();
+        await axios.post("{{url('cekstok')}}", {kapal_id:kapal_id, tanggal_mulai:tanggal_mulai, tanggal_selesai:tanggal_selesai}).then(res => {
+            if(res.data.stok > 0) {
+                $('.stok').html(`Stok : ${res.data.stok} kapal`);
+                $.notify("Stok tersedia", "success");
+            }else{
+                $('.stok').html(`Stok : 0 kapal`);
+                 $.notify("Stok tidak tersedia", "error");
             }
         })
     }

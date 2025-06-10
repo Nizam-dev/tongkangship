@@ -7,6 +7,7 @@ use App\Models\kapal;
 use App\Models\ListPelabuhan;
 use App\Models\RoutePelabuhan;
 use App\Models\booking;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -86,5 +87,27 @@ class HomeController extends Controller
         }
         auth()->user()->update($data);
         return redirect('profile')->with('success', 'Profile berhasil diupdate');
+    }
+
+    public function cekstok(Request $request){
+        $startDate = Carbon::parse($request->tanggal_mulai);
+        $endDate = Carbon::parse($request->tanggal_selesai);
+        if($endDate->lessThan($startDate) || $startDate->lessThan(Carbon::now())){
+            $data['stok'] = 0;
+        }else{
+            // ->where('status', 'kapal sedang dikirim')
+            $cek_pesanan = booking::where('kapal_id', $request->kapal_id)
+            ->where(function($query) use ($startDate, $endDate) {
+            $query->whereBetween('tanggal_mulai', [$startDate, $endDate])
+                ->orWhereBetween('tanggal_selesai', [$startDate, $endDate])
+                ->orWhere(function($query) use ($startDate, $endDate) {
+                    $query->where('tanggal_mulai', '<', $endDate)
+                            ->where('tanggal_selesai', '>', $startDate);
+                });
+            })->count();
+            $kapal = kapal::find($request->kapal_id);
+            $data['stok'] = $kapal->stok - $cek_pesanan;
+        }
+        return response()->json($data);
     }
 }
