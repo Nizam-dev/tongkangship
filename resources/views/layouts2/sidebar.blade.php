@@ -34,6 +34,12 @@
                      <span class="pc-mtext">Kapal</span>
                  </a>
              </li>
+             <li class="pc-item {{ request()->is('admin/routepelabuhan') ? 'active' : '' }}">
+                 <a href="{{url('admin/routepelabuhan')}}" class="pc-link">
+                     <span class="pc-micon"><i class="ti ti-ship"></i></span>
+                     <span class="pc-mtext">Route Pelabuhan</span>
+                 </a>
+             </li>
              <li class="pc-item pc-caption">
                  <label>Booking</label>
                  <i class="ti ti-brand-chrome"></i>

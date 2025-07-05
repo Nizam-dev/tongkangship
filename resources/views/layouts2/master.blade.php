@@ -25,6 +25,8 @@
     <link rel="stylesheet" href="{{asset('theme-admin')}}/assets/fonts/material.css">
     <link rel="stylesheet" href="{{asset('theme-admin')}}/assets/css/style.css" id="main-style-link">
     <link rel="stylesheet" href="{{asset('theme-admin')}}/assets/css/style-preset.css">
+    <link rel="stylesheet" href="{{asset('theme-admin')}}/assets/css/plugins/dataTables.bootstrap5.min.css">
+
     @stack('css')
 
 </head>
@@ -97,7 +99,8 @@
     <script src="{{asset('theme-admin')}}/assets/js/pcoded.js"></script>
     <script src="{{asset('theme-admin')}}/assets/js/plugins/feather.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
+    <script src="{{asset('theme-admin')}}/assets/js/plugins/jquery.dataTables.min.js"></script>
+    <script src="{{asset('theme-admin')}}/assets/js/plugins/dataTables.bootstrap5.min.js"></script>
 
 
     <script>

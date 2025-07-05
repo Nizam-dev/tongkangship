@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\KapalController as AdminKapalController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\BookingController as AdminBookingController;
+use App\Http\Controllers\Admin\RoutePelabuhanController;
 // user
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AuthController;
@@ -39,6 +40,8 @@ Route::group(['middleware' => ['role:admin'],'prefix' => 'admin'], function () {
     Route::resource('booking', AdminBookingController::class);
     Route::post('editstatus/{id}', [AdminBookingController::class, 'editstatus'])->name('booking.editstatus');
     Route::get('kirimkapal/{id}', [AdminBookingController::class, 'kirimkapal'])->name('booking.kirimkapal');
+    Route::get('routepelabuhan', [RoutePelabuhanController::class, 'index'])->name('routepelabuhan.index');
+    Route::put('routepelabuhan/{id}', [RoutePelabuhanController::class, 'update'])->name('routepelabuhan.update');
 });
 
 Route::group(['middleware' => ['role:user']], function () {
